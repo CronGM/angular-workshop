@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- Automatic bootstrapping: add ngApp with the module to load -->
+<html>
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body ng-controller="showHideCtrl">
+    <h1>Show/Hide Content</h1>
+
+    <button onclick="angular.bootstrap(document, ['app'])">Start Angular</button>
+
+    <p>Using the <strong>ngCloak</strong> and <strong>ngBind</strong> directives can prevent FOUC (Flash of Unwanted Content) issues. Check the HTML for how these are implemented. Once you start the Angular app the content will be evaluated and shown where appropriate.</p>
+
+    <p><strong>ngCloak</strong> requires no value and works at a <em>block</em> level.</p>
+    <div ng-cloak>
+        <p>First Name: {{ first }}</p>
+        <p>Last Name: {{ last }}</p>
+        <p>Favorite Number: {{ favNum }}</p>
+    </div>
+
+    <p><strong>ngBind</strong> requires a model and works at an <em>element</em> level.</p>
+    <p><em>(Notice how the value of the next element is entirely replaced once the model kicks in.)</em></p>
+    <p ng-bind="default">Greeting (inherited)</p>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

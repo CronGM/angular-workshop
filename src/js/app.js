@@ -29,4 +29,9 @@ angular.module('app')
 	$scope.favNum = '007';
 	$scope.default = 'Hola from Controller';
 	$scope.name = user.first + ' ' + user.last;
+})
+.controller('showHideCtrl', function($scope, user) {
+	$scope.favNum = '007';
+	$scope.first = user.first;
+	$scope.last = user.last;
 });
