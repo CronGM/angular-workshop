@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<!-- Automatic bootstrapping: add ngApp with the module to load -->
+<html ng-app="app">
 <head>
 	<title>Angular Training</title>
     <meta charset="UTF-8">
@@ -8,6 +9,32 @@
 </head>
 <body>
     <h1>Angular Workshop</h1>
+
+    <!-- MANUAL BOOTSTRAPING: Uncomment the following button element
+        * You can start Angular manually at just the right moment
+        * Put attention in the code run in the onclick event
+        * IMPORTANT: Remember to remove auto-bootstrapping (ngApp)
+    -->
+    <!--<button onclick="angular.bootstrap(document, ['app'])">Start Angular</button>-->
+
+    <!-- Use ngController directive to bind a controller to elements -->
+    <div ng-controller="myCtrl">
+        <h2>myCtrl</h2>
+        <p>Favorite Number: {{ favNum }}</p>
+        <!-- Scope inheritance: if variable is not found on local scope, it will look for it in parent scope--><!-- Scope inheritance: if variable is not found on local scope, it will look for it in parent scope-->
+        <p>Greeting (from wherever it is): {{ default }}</p>
+    </div>
+
+    <div ng-controller="otherCtrl">
+        <h2>otherCtrl</h2>
+        <p>Favorite Number: {{ favNum }}</p>
+
+        <p>Greeting in local scope: {{ default }}</p>
+
+        <!-- DANGER: You can reference parent scopes directly, but this can lead to errors in complex apps -->
+        <p>Default in $parent: {{ $parent.default }}</p>
+    </div>
+
 
     <script src="assets/js/app.js"></script>
 </body>
