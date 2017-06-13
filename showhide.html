@@ -12,18 +12,26 @@
 
     <button onclick="angular.bootstrap(document, ['app'])">Start Angular</button>
 
-    <p>Using the <strong>ngCloak</strong> and <strong>ngBind</strong> directives can prevent FOUC (Flash of Unwanted Content) issues. Check the HTML for how these are implemented. Once you start the Angular app the content will be evaluated and shown where appropriate.</p>
+    <div ng-if="isShow">
+        <p>Using the <strong>ngCloak</strong> and <strong>ngBind</strong> directives can prevent FOUC (Flash of Unwanted Content) issues. Check the HTML for how these are implemented. Once you start the Angular app the content will be evaluated and shown where appropriate.</p>
 
-    <p><strong>ngCloak</strong> requires no value and works at a <em>block</em> level.</p>
-    <div ng-cloak>
-        <p>First Name: {{ first }}</p>
-        <p>Last Name: {{ last }}</p>
-        <p>Favorite Number: {{ favNum }}</p>
+        <p><strong>ngCloak</strong> requires no value and works at a <em>block</em> level.</p>
+        <div ng-cloak>
+            <p>First Name: {{ first }}</p>
+            <p>Last Name: {{ last }}</p>
+            <p>Favorite Number: {{ favNum }}</p>
+        </div>
     </div>
 
-    <p><strong>ngBind</strong> requires a model and works at an <em>element</em> level.</p>
-    <p><em>(Notice how the value of the next element is entirely replaced once the model kicks in.)</em></p>
-    <p ng-bind="default">Greeting (inherited)</p>
+    <div ng-show="isShow">
+        <p><strong>ngBind</strong> requires a model and works at an <em>element</em> level.</p>
+        <p><em>(Notice how the value of the next element is entirely replaced once the model kicks in.)</em></p>
+        <p ng-bind="default">Greeting (inherited)</p>
+    </div>
+
+    <p>You can also show and hide content dynamically using the <strong>ngIf</strong> and <strong>ngShow</strong> directives. Check the HTML to see how they are implemented. Also, use the background inspector to see how they behave behind the scenes. There are important differences. ;)</p>
+
+    <button type="button" ng-click="showHideOnClick()">Show/Hide Content</button>
 
     <script src="assets/js/app.js"></script>
 </body>

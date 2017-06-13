@@ -34,4 +34,9 @@ angular.module('app')
 	$scope.favNum = '007';
 	$scope.first = user.first;
 	$scope.last = user.last;
+	$scope.isShow = true;
+	
+	$scope.showHideOnClick = function() {
+		$scope.isShow = !$scope.isShow;
+	}
 });
