@@ -20,6 +20,7 @@
     <!-- Use ngController directive to bind a controller to elements -->
     <div ng-controller="myCtrl">
         <h2>myCtrl</h2>
+        <p>Name: {{ name }}</p>
         <p>Favorite Number: {{ favNum }}</p>
         <!-- Scope inheritance: if variable is not found on local scope, it will look for it in parent scope--><!-- Scope inheritance: if variable is not found on local scope, it will look for it in parent scope-->
         <p>Greeting (from wherever it is): {{ default }}</p>
@@ -27,12 +28,13 @@
 
     <div ng-controller="otherCtrl">
         <h2>otherCtrl</h2>
+        <p>Name: {{ name }}</p>
         <p>Favorite Number: {{ favNum }}</p>
 
         <p>Greeting in local scope: {{ default }}</p>
 
         <!-- DANGER: You can reference parent scopes directly, but this can lead to errors in complex apps -->
-        <p>Default in $parent: {{ $parent.default }}</p>
+        <p>Greeting in $parent: {{ $parent.default }}</p>
     </div>
 
 
