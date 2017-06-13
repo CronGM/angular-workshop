@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- Automatic bootstrapping: add ngApp with the module to load -->
+<html ng-app="app">
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body ng-controller="modelsCtrl as ctrl">
+    <h1>Angular Workshop</h1>
+
+    <p ng-bind="ctrl.test"></p>
+
+    <div ng-controller="extraCtrl as extra">
+        <div ng-if="true">
+            <input type="text" ng-model="extra.test">
+            <p>{{ extra.test }}</p>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div ng-show="isShow">
+    <div ng-hide="!isShow">
         <p><strong>ngBind</strong> requires a model and works at an <em>element</em> level.</p>
         <p><em>(Notice how the value of the next element is entirely replaced once the model kicks in.)</em></p>
         <p ng-bind="default">Greeting (inherited)</p>
