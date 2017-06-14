@@ -26,4 +26,5 @@ function extraCtrl ($scope) {
 
 	vm.test = 'Extra extri!';
 }
+// EXERCISE: Try removing the following line and then use minified assets on the app to see how it breaks. Then switch to normal assets and check the app's behaviour.
 extraCtrl.$inject = ['$scope'];
