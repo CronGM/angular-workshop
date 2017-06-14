@@ -7,17 +7,75 @@
     <script src="node_modules/angular/angular.min.js"></script>
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
+
+<!-- CONTROLLER ALIASES (ControllerAs) 
+    * Using the "controllerAs" notation, use an alias to reference the specific controller you want.
+    * This is sometimes known as "dot notation", since you must add the variables as object properties (using a dot).
+    * In this way you can avoid scope confusion or unwanted inheritance.
+-->
 <body ng-controller="modelsCtrl as ctrl">
     <h1>Angular Workshop</h1>
 
+    <h2>Controller Aliases and ngModel</h2>
+
+    <!-- Notice how we are using the "test" variable coming exclusively from modelsCtrl (aliased as "ctrl")-->
     <p ng-bind="ctrl.test"></p>
 
-    <div ng-controller="extraCtrl as extra">
+    <!-- ngInit DIRECTIVE
+        Used to run an expression or method the moment the element is created in the DOM.
+        Direct assignments or expressions are considered bad practice, and we use it here just for explanation purposes.
+        Its correct use is to call a method that retrieves values from an API and then sets them inside the controller.
+    -->
+    <div ng-controller="extraCtrl as extra" ng-init="extra.test = 'OVERWRITTEN VAR'">
+        <!-- 
+            ngIf is a directive that creates its own child scope.
+            Therefore, when not using controller aliases, the value for "test" will be lost from the controller's scope.
+        -->
         <div ng-if="true">
-            <input type="text" ng-model="extra.test">
+            <!-- "minlength" and "required" attributes work as Angular directives that add their own validators to the ngModelController -->
+            <input type="text" ng-model="extra.test" minlength="5" required>
             <p>{{ extra.test }}</p>
         </div>
     </div>
+
+    <h2>Console Debugging</h2>
+
+    <p>You can debug certain Angular values (such as <strong>scopes</strong> and <strong>ngModelControllers</strong>) using the browser's console. To do that, follow these steps:</p>
+
+    <ol>
+        <li>Select the element that includes the scope (<em>element with ng-controller</em>) or the model (<em>element with ng-model</em>) you want to debug. This will be referenced in the console using "$0". (Try writing <pre class="inline">$0</pre> in the console to see the selected element's HTML). <small>Note that you can select the element by any valid JavaScript method.</small></li>
+        <li>Wrap the element with the angular.element() method. Notice how the element lives inside an array now, and you can apply many jqLite (Angular's version of jQuery) methods to it. Write <pre class="inline">angular.element($0)</pre> in the console.</li>
+        <li>
+            You can now access the desired elements scope or ngModel, along with their properties.
+            <ul>
+                <li><strong>For Scopes</strong>, use <pre class="inline">angular.element($0).scope()</pre></li>
+                <li><strong>For ngModelController</strong>, use <pre class="inline">angular.element($0).controller('ngModel')</pre></li>
+            </ul>
+        </li>
+    </ol>
+
+    <p>Some important properties to look for:</p>
+
+    <h3>Scopes</h3>
+
+    <ul>
+        <li><strong>$parent</strong>: The parent scope's object</li>
+    </ul>
+
+    <h3>ngModelController</h3>
+
+    <ul>
+        <li><strong>$viewValue</strong>: The value received from the view.</li>
+        <li><strong>$modelValue</strong>: The value saved in the model. Can be different from the viewValue depending on many factors. The modelValue is not set by default if the viewValue if the viewValue has errors. For example: check the behaviour of both values when the input has validation attributes such as <em>minlength</em> and <em>required</em></li>
+        <li><strong>$error</strong>: The object listing the errors in the ngModel. Try checking it when your modelValue is invalid.</li>
+        <li><strong>$valid</strong>: Boolean indicating if the modelValue is valid. True when the modelValue is valid.</li>
+        <li><strong>$invalid</strong>: The opposite of $valid. False when the modelValue is valid.</li>
+        <li><strong>$dirty</strong>: Set to true after the user has modified the input control's value.</li>
+        <li><strong>$touched</strong>: Set to true after the user leaves the input control.</li>
+    </ul>
+
+    <h2>ngModel and Styles</h2>
+    <p>The ngModel directive adds various CSS classes depending on the validation state. You can use these classes to style your app's controls as you wish. Check the <em>_base.scss</em> file to take a look at some examples. Some example classes are: <em>ng-valid, ng-invalid, ng-touched</em>, and <em>ng-dirty</em>.</p>
 
     <script src="assets/js/app.js"></script>
 </body>

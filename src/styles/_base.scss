@@ -2,6 +2,10 @@ body {
     font-family: Helvetica, Arial, sans-serif;
 }
 
+h2 {
+    border-bottom: solid 1px #ccc;
+}
+
 pre {
     background: #ddd;
     color: #333;
@@ -10,4 +14,26 @@ pre {
     width: auto;
     display: block;
     padding: 0.5em;
+
+    &.inline {
+        display: inline-block;
+        padding: 0.1em;
+        margin: 0;
+    }
+}
+
+li {
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+}
+
+.ng-invalid {
+    border: solid 1px red;
+}
+
+.ng-touched {
+    color: blue;
+}
+.ng-dirty {
+    text-transform: uppercase;
 }
