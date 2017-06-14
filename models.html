@@ -22,14 +22,14 @@
     <p ng-bind="ctrl.test"></p>
 
     <!-- ngInit DIRECTIVE
-        Used to run an expression or method the moment the element is created in the DOM.
-        Direct assignments or expressions are considered bad practice, and we use it here just for explanation purposes.
-        Its correct use is to call a method that retrieves values from an API and then sets them inside the controller.
+        * Used to run an expression or method the moment the element is created in the DOM.
+        * Direct assignments or expressions are considered bad practice, and we use it here just for explanation purposes.
+        * Its correct use is to call a method that retrieves values from an API and then sets them inside the controller.
     -->
     <div ng-controller="extraCtrl as extra" ng-init="extra.test = 'OVERWRITTEN VAR'">
         <!-- 
-            ngIf is a directive that creates its own child scope.
-            Therefore, when not using controller aliases, the value for "test" will be lost from the controller's scope.
+            * ngIf is a directive that creates its own child scope.
+            * Therefore, when not using controller aliases, the value for "test" will be lost from the controller's scope.
         -->
         <div ng-if="true">
             <!-- "minlength" and "required" attributes work as Angular directives that add their own validators to the ngModelController -->
@@ -77,6 +77,8 @@
     <h2>ngModel and Styles</h2>
     <p>The ngModel directive adds various CSS classes depending on the validation state. You can use these classes to style your app's controls as you wish. Check the <em>_base.scss</em> file to take a look at some examples. Some example classes are: <em>ng-valid, ng-invalid, ng-touched</em>, and <em>ng-dirty</em>.</p>
 
-    <script src="assets/js/app.js"></script>
+    <!-- Try using the minified assets instead to see how dependency injection is affected by minification. SPOILER: Everything breaks -->
+    <script src="assets/js/app.min.js"></script>
+    <!--<script src="assets/js/app.js"></script>-->
 </body>
 </html>
