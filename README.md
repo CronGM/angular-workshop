@@ -25,7 +25,7 @@ https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
 
 ### Session 2
 1. Dependency Injection
-3. ngModel
-2. Controller Good Practices, Controller Aliases
+1. ngModel
+1. Controller Good Practices, Controller Aliases
 1. Console Debugging: ngModel
-1. More Directives: ngRepeat, ngInit
+1. ngInit Directive
