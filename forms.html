@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- Here we load a different module that loads the correct dependencies -->
+<html ng-app="forms">
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body ng-controller="formsCtrl as ctrl">
+    <h1>Forms</h1>
+
+    <p>A <span class="code">formController</span> is created when a <span class="code">name</span> attribute is set in a <span class="code">form</span> element. You can debug this formController in the browser console by wrapping the form element as an Angular element, then retrieving the property with the form's name inside the scope.</p>
+    
+    <pre>angular.element(document.getElementsByTagName('form')).scope().myForm</pre>
+
+    <h2>formControllers and ngModelControllers</h2>
+
+    <!-- Add the novalidate attribute so validation is done via Angular -->
+    <!-- Set the name property so a formController with the same name is created in $scope -->
+    <form name="myForm" novalidate>
+        <p>To associate an <span class="code">ngModelController</span> to a formController, simply add the "name" attribute to an input. The ngModelController will be added to the formController as a property with the same name as the attribute's value</p>
+        <p>Some interesting attributes to look for:</p>
+        <ul>
+            <li><strong>$dirty</strong>: Set to true after user enters a value in any input.</li>
+            <li><strong>$pristine</strong>: Contrary to $dirty, it has a true value until the user interacts with any input.</li>
+            <li><strong>$valid</strong>: True when all inputs in a formController have valid values.</li>
+            <li><strong>$invalid</strong>: The opposite of $valid.</li>
+            <li><strong>$error</strong>: A list of the validation errors in a form, by category.</li>
+        </ul>
+
+        <label for="input1">Input 1</label>
+        <!--
+            The following input adds three validators to the ngModelController, just as HTML/HTML does.
+            A valid ngModel is set only after all validators are met.
+            * minlength: Assert that the value is at least n characters
+            * ng-pattern: Assert that the value complies with the given regular expression
+            * ng-required: Asserts that the input is not left empty
+        -->
+        <input id="input1" name="input1" type="text" ng-model="ctrl.input1"
+            minlength="3"
+            ng-pattern="/\d{3}/"/
+            ng-required="true" />
+
+        <!--
+            The ngMessages directive shows an error message based on the properties of the object given as a value.
+            Individual error messages are added as child elements with the ngMessage child directive.
+            Only one message is shown at a time, and prioritized in the order they are defined in the document.
+        -->
+        <div ng-messages="myForm.input1.$error" ng-show="myForm.input1.$touched" role="alert" class="error">
+            <span ng-message="required">required error message</span>
+            <span ng-message="minlength">minlength error message</span>
+            <span ng-message="pattern">pattern error message</span>
+        </div>
+
+        <button type="button" ng-click="ctrl.toggleErrorDebug()">Show/Hide Error Debugging</button>
+
+        <div ng-show="ctrl.isShowError">
+            <p><small>ngModelController.$error for input1</small></p>
+            <pre>
+                {{ myForm.input1.$error | json }}
+            </pre>
+        </div>
+        
+        
+        <label for="input2">Input 2</label>
+        <input id="input2" name="input2" type="text" ng-model="ctrl.input2" required />
+        <!-- Example of how the properties of formControllers and ngModelControllers can be used to make form interactions. In this case, we show an error message, similar to how the ngMessages directive works -->
+        <div class="error" ng-if="myForm.input2.$error.required" ng-show="myForm.input2.$touched">
+            <span>Error here</span>
+        </div>
+
+        <!-- The ngDisabled directive evaluates an Angular expression, and disables the element on a 'truthy' value -->
+        <button type="submit" ng-disabled="myForm.$invalid">SUBMIT FORM</button>
+    </form>
+
+    <h2>ngRepeat Directive</h2>
+
+    <p>The ngRepeat directive lets you iterate over the items in an array. You can add any HTML inside the element with the ngRepeat directive, and that will be repeated for each item inside the array.</p>
+
+    <p><strong>List of users:</strong></p>
+    <ol>
+        <li ng-repeat="user in ctrl.response.users">
+            <p>
+            {{ user.first }}
+            </p>
+            <button>
+            {{ user.last }}
+            </button>
+        </li>
+    </ol>
+
+
+    <script src="assets/js/app.js"></script>
+    <!-- Remember to load the scripts for additional directives -->
+    <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+</body>
+</html>
