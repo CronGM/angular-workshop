@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Here we load a different module that loads the correct dependencies -->
+<html ng-app="dirs">
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <h1>Angular Directives</h1>
+
+    <p>You can currently declare four types of directives depending on the string parameter you pass to the <span class="code">restrict</span> parameter of the Directive declaration function. Please check the source code for complete details on implementation.</p>
+    <ol>
+        <li><strong>Element</strong>: Declared with an <span class="code">'E'</span>, and created as HTML elements.</li>
+        <li><strong>Attribute</strong>: Declared with an <span class="code">'A'</span>, added as an attribute to an existing HTML element.</li>
+        <li><strong>Class</strong>: Declared with an <span class="code">'C'</span>, added with a class name to the element.</li>
+        <li><strong>Comment</strong>: Declared with an <span class="code">'M'</span>, added with an HTML comment.</li>
+    </ol>
+
+    <p>Here you can see an example of each of these directives:</p>
+    
+    <elem-directive></elem-directive>
+
+    <div attr-directive></div>
+
+    <div class="class-directive"></div>
+
+    <!-- directive: comment-directive -->
+
+    <!-- You can create Angular templates using the following syntax. You can then refer to these kind of templates using the value of the id attribute. Check the directives.js file for implementation. -->
+    <script type="text/ng-template" id="attr-directive.html">
+        <p>Yo soy atributo.</p>
+    </script>
+
+    <h2>Custom Controls</h2>
+
+    <p>You can create custom HTML controls using the directive's <span class="code">link</span> option (or directive's link function) along with other directive options such as templates. Please refer to the source code for more details.</p>
+
+    <p>Here, we are creating a custom control "counter", which consists of two buttons to change the counter value, and the value itself. Additionally, you can add an <span class="code">increment</span> attribute to set how much the counter changes upon each button click.</p>
+
+    <counter increment="5"></counter>
+
+
+    <script src="assets/js/app.js"></script>
+    <!-- Remember to load the scripts for additional directives -->
+    <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+</body>
+</html>
