@@ -60,3 +60,22 @@ button {
     margin-bottom: 1em;
     width: auto;
 }
+
+counter,
+counter2 {
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    padding: 0.1em;
+    margin-bottom: 1em;
+    display: inline-block;
+
+    span {
+        display: inline-block;
+        text-align: center;
+        width: 2em;
+    }
+
+    button {
+        margin: 0;
+    }
+}
