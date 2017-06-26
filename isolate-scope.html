@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- Here we load a different module that loads the correct dependencies -->
+<html ng-app="dirs">
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <h1>Isolate Scopes</h1>
+
+    <p>Let's use our counter element we created. As a directive, it's supposedly a reusable element. But notice what happens when you have multiplate instances of it.</p>
+
+    <div>
+        <counter increment="5"></counter>
+        <counter increment="10"></counter>
+        <counter increment="20"></counter>
+    </div>
+
+    <p>Why is the value changing in the other controls when we use just one? <small><em>Hint, debug the <span class="code">scope</span> to see how it's behaving.</em></small></p>
+
+    <h2>Introducing Isolate Scopes</h2>
+    <p>The thing is, every instance is using the same scope. We need to use a different scope for each instance of counter. This is called an <strong>isolate scope</strong>, and to create one, we just add the option <span class="code">scope</span> to our directive function declaration, and assign an empty object <span class="code">{}</span> to it.</p>
+    <p>Now, we can see how each control behaves independently.</p>
+    <div>
+        <counter2></counter2>
+        <counter2 increment="5"></counter2>
+        <counter2 increment="10"></counter2>
+    </div>
+
+    <p>You can now debug this isolate scope in the browser console in the form of <span class="code">angular.element($0).isolateScope()</span>. <small><em>Notice how the id is different, and how we still have a <span class="code">scope</span> object attached to the element.</em></small></p>
+
+    <p>Now, having an isolate scope does not mean we can't communicate with the outer scope, for example, of a controller. There are three kinds of bindings we can create for our isolate scope. That is, three different ways to have that communication.</p>
+    <p>To assign this bindings, you just need to declare a key/property inside the <span class="code">scope</span> option of the directive with the proper parameter.</p>
+
+    <ul>
+        <li><strong>One-way binding</strong>: Use with <span class="code">'@'</span>. Changes on the outside scope get passed to the directive, but not backwards.</li>
+        <li><strong>Two-way binding</strong>: Use with <span class="code">'='</span>. Changes travel both ways (from outer to isolated scope and vice versa).</li>
+        <li><strong>Parent Context binding</strong>: Use with <span class="code">'&'</span>. Useful for APIs. The methods are called on the context of the outer scope.</li>
+    </ul>
+
+    <!-- Declaring controllers without aliases to have a better grasp of how scopes are working (no direct reference to any instance) -->
+    <div ng-controller="scopeCtrl">
+        <h3>One-Way Binding Example
+            <small><em>Changing the outer value affects the directive. Changing the value from the inner input does not affect the outer scope.</em></small>
+        </h3>
+        <div class="outer">
+            <p>Outer Default: {{ default }}</p>
+            <label for="owbo">Input with Outer Scope</label>
+            <input id="owbo" type="text" ng-model="default">
+
+            <div class="inner">
+                <!-- Notice we need to interpolate (run the expression) to get the string value -->
+                <one-way-dir inner-value="{{default}}"></one-way-dir>
+            </div>
+        </div>
+    </div>
+
+    <div ng-controller="scopeCtrl">
+        <h3>Two-Way Binding Example
+            <small><em>Changes in scope travel both ways, the outer affecting the inner and vice-versa.</em></small>
+        </h3>
+        <div class="outer">
+            <p>Outer Default: {{ default }}</p>
+            <label for="twbo">Input with Outer Scope</label>
+            <input id="twbo" type="text" ng-model="default">
+
+            <div class="inner">
+                <two-way-dir inner-value="default"></two-way-dir>
+            </div>
+        </div>
+    </div>
+
+    <div ng-controller="scopeCtrl">
+        <h3>Parent Context Example
+            <small><em>Functions with this binding are executed in the context of the outer scope.</em></small>
+        </h3>
+        <p>Both the controller and the directive have a <span class="code">reset</span> method. Both are called from the directive, but their behavior is different.</p>
+        <div class="outer">
+            <p>Outer Default: {{ default }}</p>
+            <div class="inner">
+                <parent-context-dir inner-value="reset()"></parent-context-dir>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

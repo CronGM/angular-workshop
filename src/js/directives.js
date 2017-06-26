@@ -1,9 +1,14 @@
 angular.module('dirs', [])
+.controller('scopeCtrl', scopeCtrl)
 .directive('elemDirective', elemDirective)
 .directive('attrDirective', attrDirective)
 .directive('classDirective', classDirective)
 .directive('commentDirective', commentDirective)
-.directive('counter', counter);
+.directive('counter', counter)
+.directive('counter2', counter2)
+.directive('oneWayDir', oneWayDir)
+.directive('twoWayDir', twoWayDir)
+.directive('parentContextDir', parentContextDir);
 
 
 function elemDirective() {
@@ -62,7 +67,7 @@ function counter() {
 			var increment = parseInt(attrs.increment || 1);
 
 			// In the link function you can initialize values for your custom control.
-			scope.counter = 5;
+			scope.counter = 0;
 
 			// We know that our custom control has two buttons, so let's get them in order to add our custom functionality.
 			var buttons = elem.find('button');
@@ -86,6 +91,95 @@ function counter() {
 					console.log(scope.counter);
 				});
 			});
+		}
+	}
+}
+
+/******** ADDITIONS FOR SESSION 5 ********/
+
+// This is the same directive as counter, but all functionality comes from controller instead of the link functions, just as an example
+// Adding template and controller inline for clarity. Remember best practics
+function counter2() {
+	return {
+		restrict: 'E',
+		template: '<button type="button" style="display: inline-block; margin-right: .5em" ng-click="subtract()">-</button><span>{{ counter }}</span><button type="button" style="display: inline-block; margin-left: .5em" ng-click="add()">+</button>',
+		/*
+			* The controller has three dependencies by default, which are the scope, the element of the directive, and the attributes of the element
+			* Unlike the link function parameters, if you change the name of these dependencies the control will most likely break, so use them as defined here
+		*/
+		controller: ['$scope', '$element', '$attrs', function counter2Controller ($scope, $element, $attrs) {
+			var increment = parseInt($attrs.increment || 1);
+
+			$scope.counter = 0;
+
+			$scope.subtract = function() {
+					$scope.counter = $scope.counter - (increment);
+					console.log($scope.counter);
+			}
+
+			$scope.add = function() {
+				$scope.counter = $scope.counter + parseInt(increment);
+				console.log($scope.counter);
+			}
+		}],
+		scope: {}
+	}
+}
+
+// Demo controller with default values and methods
+function scopeCtrl($scope) {
+	var vm = $scope;
+
+	vm.default = 'Default value';
+
+	vm.reset = function () {
+		vm.default = 'OUTER CHANGE';
+	}
+}
+scopeCtrl.$inject = ['$scope'];
+
+function oneWayDir() {
+	return {
+		restrict: 'E',
+		template: '<p>Inner Default: {{ default }}</p><label for="owbi">Input in Directive</label><input id="owbi" type="text" ng-model="innerValue">',
+		scope: {
+			// '@': The value gets passed as string, and does not affect changes upward
+			innerValue: '@'
+		},
+		link: function myDirLink (scope, elem, attrs) {
+			scope.default = 'Value from Directive';
+		}
+	}
+}
+
+function twoWayDir() {
+	return {
+		restrict: 'E',
+		template: '<p>Inner Default: {{ default }}</p><label for="twbi">Input in Directive</label><input id="owbi" type="text" ng-model="myValue">',
+		scope: {
+			// '=': A normal two-way binding. Notice that you can assign an internal name for handling the value. Here, the innerVvalue from the HTML is passed and used as "myValue"
+			myValue: '=innerValue'
+		},
+		link: function myDirLink (scope, elem, attrs) {
+			scope.default = 'Value from Directive';
+		}
+	}
+}
+
+function parentContextDir() {
+	return {
+		restrict: 'E',
+		template: '<p>Inner Default: {{ default }}</p><button type="button" ng-click="myValue()">Parent Context</button><p><button type="button" ng-click="reset()">Scope Context</button>',
+		scope: {
+			// '&': The methods referenced are executed in the context of the parent/outer scope. Even if we have a method with the same name in the directive, Anuglar will know which one to reference. This is the best pattern for making and working with controller APIs
+			myValue: '&innerValue'
+		},
+		link: function myDirLink (scope, elem, attrs) {
+			scope.default = 'Value from Directive';
+			scope.reset = function() {
+				scope.default = 'INNER CHANGE ONLY';
+			}
+			console.log('listo');
 		}
 	}
 }
