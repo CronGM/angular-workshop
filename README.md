@@ -29,3 +29,25 @@ https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
 1. Controller Good Practices, Controller Aliases
 1. Console Debugging: ngModel
 1. ngInit Directive
+
+### Session 3
+1. ngRepeat directive
+1. formController
+1. formController Properties
+1. formControllers and ngModelControllers
+1. Use ngModelController validation properties in HTML
+1. ngPattern Directive
+1. ngMessages Directive
+
+### Session 4
+1. Custom Directives
+1. Directive Templates
+1. Types of directives
+1. The Link Function
+
+### Session 5
+1. Isolated Scopes
+
+### Session 6
+1. Directives that can Communicate with Each Other
+1. Nested directives
