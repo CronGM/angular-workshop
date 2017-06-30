@@ -1,0 +1,50 @@
+.nav {
+margin-bottom: 0;
+padding: 0;
+
+	li {
+		display: inline-block;
+		border: solid 1px #888;
+		border-bottom: none;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		margin-bottom: 0;
+		padding: 0.5em 0.75em;
+
+		a {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		&.active {
+			border-color: #333;
+			background: #ccc;
+
+			a {
+				color: #333;
+				cursor: default;
+				text-decoration: none;
+			}
+		}
+
+		&:hover {
+			background: #ccc;
+		}
+	}
+}
+
+.xd-tabs-panel {
+	border: solid 1px #333;
+	padding: 0.5em 0.75em;
+
+	h4:first-child {
+		margin-top: 0;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}

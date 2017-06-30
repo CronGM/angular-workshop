@@ -1,0 +1,8 @@
+<!-- Template for the TAB component -->
+
+<!-- $ctrl is the default controller alias in components. If you use the controllerAs option in the component declaration then you need to change that alias here too -->
+<div class="xd-tab" ng-show="$ctrl.selected">
+	<h4>{{ $ctrl.title }}</h4>
+	<p ng-if="$ctrl.model">Model: {{ $ctrl.model }}</p>
+	<div ng-transclude></div>
+</div>

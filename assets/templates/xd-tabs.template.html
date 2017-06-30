@@ -1,0 +1,19 @@
+<!-- Template for the TABS CONTAINER directive -->
+
+<div class="xd-tabs">
+	<ul class="nav">
+		<!-- The ngClass directive adds the appropriate class when the given expression resolves to a "truthy" value
+			You can apply different classes and expressions by separating them with commas, just like any JS object with properties
+		-->
+		<li ng-repeat="panel in panels" ng-class="{ 'active': panel.selected }">
+			<a href="" ng-click="select(panel)">{{ panel.title }}</a>
+		</li>
+	</ul>
+	<!-- The ngTransclude directive has two main functions: 
+		1. It tells the element to render whatever HTML is inside the element, and
+		2. It tells those HTML elements to use their original scope
+
+		More info: https://docs.angularjs.org/api/ng/directive/ngTransclude 
+	-->
+	<div class="xd-tabs-panel" ng-transclude></div>
+</div>

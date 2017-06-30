@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="app.components">
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <h1>Nested Directives</h1>
+
+	<xd-tabs>
+		<xd-tab title="Tab 1">
+			<p>This is the first tab.</p>
+		</xd-tab>
+		<xd-tab title="Tab 2" ng-model="$parent.myModel">
+			<p>The second tab.</p>
+		</xd-tab>
+		<!-- Components can work together with directives, just keep in mind to make the appropriate changes in their declarations and templates -->
+		<cp-tab title="Tab 3" ng-model="$parent.myModel">
+			<p>I am the THIRD tab.</p>
+		</cp-tab>
+	</xd-tabs>
+    
+    <script src="/assets/js/app.js"></script>
+</body>
+</html>
