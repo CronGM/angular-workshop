@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="dirs">
+<head>
+	<title>Angular Training</title>
+    <meta charset="UTF-8">
+    <script src="node_modules/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body ng-controller="filterController">
+    <h1>Angular Filters</h1>
+
+    <p>Angular filters are tools to help you give your data more meaning in the view or template. Following the principles of MVC, you can present the data in a format that makes more sense to the user than raw data.They can even help to limit the data the user sees through search filters.</p>
+
+    <h2>Data Filters</h2>
+
+    <p>The most basic use of filters is to give your data a visual format in the view or template, without modifying the original data. Angular has many built in filters to format data, and some of the most common ones are uppercase and lowercase (for strings), number, currency, and date filters. Let's see some examples of how they work.</p>
+
+    <p>You can even create your own data and search filters, but that topic is out of scope for this workshop.</p>    
+
+    <h3>Uppercase/Lowercase</h3>
+    <p>These filters work on string objects, and transform your string according to the respective format.</p>
+    <label for="myInput" style="display: block">Uppercase filter</label>
+    <input id="myInput" type="text" ng-model="myInput">
+    <!-- To add a filter to any Angular data expression just add the "pipe" symbol followed by the name of filter to be applied. -->
+    <p>Filtered Input: {{ myInput | uppercase }}</p>
+    <p>Model: {{ myInput }}</p>
+
+    <h3>Number</h3>
+    <p>Some filters can also receive parameters to modify their behaviors. For example, the <em>Number</em> filter accepts an int number specifying the number of decimals the number should be formatted to.</p>
+    <p>Pi (from Math.PI): <strong>{{ pi }}</strong></p>
+    <!-- Parameters are passed to filters with a colon. You can pass along multiple parameters (not exemplified here) with another colon and then the next parameters -->
+    <p>Pi (with Number filter): <strong>{{ pi | number: 4 }}</strong></p>
+
+    <h3>Currency</h3>
+    <p>Here we added the currency filter inside the counter directive's template. Notice that the value in the model is a plain number.</p>
+    <label for="uno" style="display:block">Value in Model: {{ myModel.value }}</label>
+    <counter id="uno" name="myCounter" increment="5" ng-model="myModel" required></counter>
+
+    <button type="submit" ng-disabled="myForm.$invalid">Submit</button>
+
+    <h2>Search Filters</h2>
+    <p>Search filters reduce the set of results given by an enumerable object before passing it over to the ngRepeater directive, making them very efficient in runtime. Check the source code for implementation details.</p>
+
+    <label for="search" style="display:block">searchQuery:</label>
+    <!--    EXERCISE: Try changing the ngModel to "searchQuery.last" to see the search acting only on the "last name" values of the objects.
+            Try searching for 'jo' before and after this change and check the difference in the set of results.
+            Hint: if no key is specified to the search, it'll act as a wildcard and will search EVERYWHERE in the object. (O_O)
+    -->
+    <input id="search" type="text" ng-model="searchQuery">
+    <ul>
+        <!--    You can chain multiple filters and the results will be passed along in the same order.
+                Here, we are first reducing the set of results, and then ordering the results by the "last" name property of the objects.
+                Try swapping the orderBy filter before the search filter and guess how it's working on the background. 
+        -->
+        <li ng-repeat="user in users | filter:searchQuery | orderBy:'last'">
+            {{ user.first}} {{ user.last }}
+        </li>
+    </ul>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

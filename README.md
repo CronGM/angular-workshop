@@ -15,6 +15,23 @@ Understanding Dependency Injection
 
 https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
 
+Angular Services
+
+https://docs.angularjs.org/guide/services
+
+Services: $q
+
+https://docs.angularjs.org/api/ng/service/$q
+
+Services: $http
+
+https://docs.angularjs.org/api/ng/service/$http
+
+Understanding Promises
+
+http://andyshora.com/promises-angularjs-explained-as-cartoon.html
+
+
 ## Topics
 
 ### Session 1
@@ -60,3 +77,4 @@ https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
   1. How to set custom validation using $setViewValue
   1. Custom validators
   1. Parsers
+1. Intro to Angular Services/Factories
