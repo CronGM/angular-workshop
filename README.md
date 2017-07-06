@@ -51,3 +51,12 @@ https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection
 ### Session 6
 1. Directives that can Communicate with Each Other
 1. Nested directives
+
+### Session 7
+1. Filters
+  1. Format/Presentation Filters
+  1. Search Filters
+1. ngModelController
+  1. How to set custom validation using $setViewValue
+  1. Custom validators
+  1. Parsers

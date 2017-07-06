@@ -21,7 +21,7 @@ function elemDirective() {
 		*/
 		restrict: 'E',
 		// You can use the TEMPLATE option when your HTML snippet is simple
-		template: '<p>Yo soy un elemento.</p>',
+		template: '<p>I am a element.</p>',
 	}
 }
 
@@ -46,16 +46,18 @@ function commentDirective() {
 		restrict: 'M',
 		// The replace option, while deprecated, must be used for Comment directives to work correctly.
 		replace: true,
-		template: '<p>Yo soy un comentario.</p>',
+		template: '<p>I am a comment.</p>',
 	}
 }
 
 // Here we are creating a custom control with added functionality via the link function
+// NOTE: This directive left without an isolate scope intentionally, to demonstrate how it changes the general scope
 function counter() {
 	return {
 		restrict: 'E',
-		template: '<button type="button" style="display: inline-block; margin-right: .5em">-</button><span>{{ counter }}</span><button type="button" style="display: inline-block; margin-left: .5em">+</button>',
-		link: function(scope, elem, attrs) {
+		template: '<button type="button" style="display: inline-block; margin-right: .5em">-</button><span>{{ counter | currency }}</span><button type="button" style="display: inline-block; margin-left: .5em">+</button>',
+		require: 'ngModel',
+		link: function(scope, elem, attrs, ngModel) {
 			/* The link function is executed when the HTML element is loaded in the DOM. Think of it as a "document ready" callback
 				The function link receives three parameters by default:
 				* scope: The inherited scope to work in.
@@ -74,6 +76,34 @@ function counter() {
 			var buttonSubtract = buttons[0];
 			var buttonAdd = buttons[1];
 
+			/*	SESSION 7
+				Parsers are run in a certain order, and return the modified value that will be set in the model.
+				We push our parser function at the end of the array to check for the latest value thrown.
+				The parsers function receives either the value from the viewValue (if it is the first parser), or the value thrown from the last parser.
+				If there are no more parsers left, the return value is set in the $modelValue.
+			*/
+			ngModel.$parsers.push(function(fromViewValue) {
+				// return '$' + fromViewValue;
+				return { id: 1, concept: 'donation', value: fromViewValue };
+			})
+
+			/*	SESSION 7
+				Validators run after the parsers in the ngModel lyfecicle.
+				Validators do not modify the modelValue nor the viewValue, so the order is mostly irrelevant.
+				We add our validator function to $validators with the name we want to identify it with.
+				This name is the one that appears on the $error object and the validation classes (for example, "ng-invalid-zero");
+				The validator function receives the modelValue as the first parameter, and the viewValue as the second.
+				The function must return a boolean value stating if the value to set is valid or invalid.
+			*/
+			ngModel.$validators.zero = function(modelValue, viewValue) {
+				// Remember that the model is being saved as an object, so we check for that
+				var internal = modelValue.value || viewValue;
+				if (internal == 0) {
+					return false;
+				}
+				return true;
+			}
+
 			// Angular uses a simplified jQuery library called jQLite. Check the Angular Element documentation to see which functions are available.
 			// https://docs.angularjs.org/api/ng/function/angular.element
 			angular.element(buttonSubtract).on('click', function() {
@@ -82,6 +112,7 @@ function counter() {
 				scope.$apply(function() {
 					scope.counter = scope.counter - (increment);
 					console.log(scope.counter);
+					ngModel.$setViewValue(scope.counter);
 				});
 			});
 
@@ -89,6 +120,7 @@ function counter() {
 				scope.$apply(function() {
 					scope.counter = scope.counter + parseInt(increment);
 					console.log(scope.counter);
+					ngModel.$setViewValue(scope.counter);
 				});
 			});
 		}

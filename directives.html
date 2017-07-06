@@ -31,7 +31,7 @@
 
     <!-- You can create Angular templates using the following syntax. You can then refer to these kind of templates using the value of the id attribute. Check the directives.js file for implementation. -->
     <script type="text/ng-template" id="attr-directive.html">
-        <p>Yo soy atributo.</p>
+        <p>I am an attribute.</p>
     </script>
 
     <h2>Custom Controls</h2>
@@ -40,8 +40,32 @@
 
     <p>Here, we are creating a custom control "counter", which consists of two buttons to change the counter value, and the value itself. Additionally, you can add an <span class="code">increment</span> attribute to set how much the counter changes upon each button click.</p>
 
-    <counter increment="5"></counter>
+    <counter2 id="theCounter" ng-model="myCounter"></counter2>
 
+    <h3>ngModelController</h3>
+
+    <p>In order to complete our custom controller and make it work with forms, we need to take advantage of the ngModelController and its methods. The most important one is to use <span class="code">$setViewValue</span> to establish both the <span class="code">$viewValue</span> and the <span class="code">$modelValue</span> of our model.</p>
+
+    <h4>Parsers</h4>
+    <p>The <span class="code">$parsers</span> property is an array of functions that run in a specific order, and which can modify the value of the model before it is set in the <span class="code">$modelValue</span>. In this manner you can effectively separate the view from the model, showing a specific format in the view while saving another format in the background. In the example below we are saving the model as an entire object with added parameters, instead of just the counter value seen in the view.</p>
+
+    <h4>Validators</h4>
+    <p>You can add custom validation to your model via the <span class="code">$validators</span> property. Similar to <span class="code">$parsers</span>, it is an array of functions that checks that the value passed from the DOM meets certain conditions. In the example below, we have added a validator that makes our counter control invalid when the value is zero (0). <small><em>Check the source code on how to add your own Parsers and Validators.</em></small></p>
+
+
+    <form name="myForm" action="">
+        <label for="uno" style="display:block">myModel: {{ myModel }}</label>
+        <counter id="uno" name="myCounter" increment="5" ng-model="myModel" required></counter>
+
+        <button type="submit" ng-disabled="myForm.$invalid">Submit</button>
+
+        <div ng-if="showDebug">
+            <pre>{{ myForm | json }}</pre>
+        </div>
+        <button type="button" ng-click="(showDebug = !showDebug)">Show/Hide Form Debug</button>
+    </form>
+
+    <p>Parsers and Validators are just two of many properties and methods available. For more info on ngModelController and its properties, check the <a href="https://docs.angularjs.org/api/ng/type/ngModel.NgModelController">ngModelController documentation page</a>.</p>
 
     <script src="assets/js/app.js"></script>
 </body>

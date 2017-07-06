@@ -82,7 +82,7 @@ counter2 {
     span {
         display: inline-block;
         text-align: center;
-        width: 2em;
+        min-width: 2em;
     }
 
     button {
